@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f5f7f5;
+    color: #2d3436;
+    line-height: 1.6;
+}
+
+.header {
+    background: #27ae60;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 4px solid #229954;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.header p {
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+.main-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.video-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#webcam {
+    width: 100%;
+    border-radius: 6px;
+    background: #2d3436;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.status-card,
+.controls-card,
+.tips-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.status-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #636e72;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-indicator {
+    padding: 1rem;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    border: 2px solid;
+}
+
+.status-indicator.neutral {
+    background: #ecf0f1;
+    border-color: #bdc3c7;
+    color: #7f8c8d;
+}
+
+.status-indicator.good {
+    background: #d5f4e6;
+    border-color: #27ae60;
+    color: #27ae60;
+}
+
+.status-indicator.bad {
+    background: #fadbd8;
+    border-color: #e74c3c;
+    color: #e74c3c;
+}
+
+.status-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.confidence-text {
+    text-align: center;
+    color: #636e72;
+    font-size: 0.875rem;
+}
+
+.controls-card {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #229954;
+}
+
+.btn-secondary {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #c0392b;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.tips-card h3 {
+    margin-bottom: 1rem;
+    color: #27ae60;
+    font-size: 1.125rem;
+}
+
+.tips-card ul {
+    list-style: none;
+}
+
+.tips-card li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #2d3436;
+}
+
+.tips-card li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(231, 76, 60, 0.95);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-overlay.show {
+    display: flex;
+    animation: fadeIn 0.3s;
+}
+
+.alert-box {
+    text-align: center;
+    color: white;
+    max-width: 500px;
+    padding: 2rem;
+}
+
+.alert-icon {
+    width: 80px;
+    height: 80px;
+    background: white;
+    color: #e74c3c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0 auto 1.5rem;
+    animation: pulse 1s infinite;
+}
+
+.alert-box h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.alert-box p {
+    font-size: 1.25rem;
+    opacity: 0.95;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .controls-card {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posture Monitor</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Posture Monitor</h1>
+        <p>Keep your back healthy while working</p>
+    </div>
+
+    <div class="main-container">
+        <div class="video-section">
+            <video id="webcam" autoplay playsinline></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
+
+        <div class="info-section">
+            <div class="status-card">
+                <span class="status-label">Current Status</span>
+                <div id="status" class="status-indicator neutral">
+                    <span class="status-text">Not Active</span>
+                </div>
+                <p id="confidence" class="confidence-text"></p>
+            </div>
+
+            <div class="controls-card">
+                <button id="startBtn" class="btn btn-primary">Start Monitoring</button>
+                <button id="stopBtn" class="btn btn-secondary" disabled>Stop</button>
+            </div>
+
+            <div class="tips-card">
+                <h3>Tips for Good Posture</h3>
+                <ul>
+                    <li>Keep your back straight against the chair</li>
+                    <li>Feet flat on the floor</li>
+                    <li>Screen at eye level</li>
+                    <li>Take breaks every 30 minutes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="alert" class="alert-overlay">
+        <div class="alert-box">
+            <div class="alert-icon">!</div>
+            <h2>Poor Posture Detected</h2>
+            <p>Please adjust your sitting position</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
