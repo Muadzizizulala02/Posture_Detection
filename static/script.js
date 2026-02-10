@@ -6,6 +6,7 @@ const confidence = document.getElementById('confidence');
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
 const alert = document.getElementById('alert');
+const alertVideo = document.getElementById('alertVideo');
 
 let stream = null;
 let ws = null;
@@ -21,6 +22,17 @@ async function startMonitoring() {
             video: { width: 640, height: 480 } 
         });
         webcam.srcObject = stream;
+
+        // Enable autoplay with sound by having user interact first
+        // This primes the video element
+        alertVideo.muted = true;
+        alertVideo.play().then(() => {
+            alertVideo.pause();
+            alertVideo.muted = false;
+            alertVideo.currentTime = 0;
+        }).catch(err => {
+            console.log('Video prime failed:', err);
+        });
 
         const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         ws = new WebSocket(`${wsProtocol}//${window.location.host}/ws`);
@@ -122,17 +134,41 @@ function updateStatus(type, text) {
 function showAlert() {
     alert.classList.add('show');
     
+    // Reset and play video from start
+    // alertVideo.currentTime = 0;
+    
+    // Set volume to maximum
+    alertVideo.volume = 1.0;
+    
+    // Try to play with sound
+    const playPromise = alertVideo.play();
+    
+    if (playPromise !== undefined) {
+        playPromise.catch(err => {
+            console.log('Autoplay with sound blocked, trying muted:', err);
+            // If blocked, try playing muted as fallback
+            alertVideo.muted = true;
+            alertVideo.play();
+        });
+    }
+    
+    // Auto-hide when video ends
+    alertVideo.onended = () => {
+        hideAlert();
+    };
+    
+    // Clear any existing timeout
     if (alertTimeout) {
         clearTimeout(alertTimeout);
     }
-    
-    alertTimeout = setTimeout(() => {
-        hideAlert();
-    }, 3000);
 }
 
 function hideAlert() {
     alert.classList.remove('show');
+    alertVideo.pause();
+    alertVideo.currentTime = 0;
+    alertVideo.muted = false; // Reset muted state
+    
     if (alertTimeout) {
         clearTimeout(alertTimeout);
         alertTimeout = null;
